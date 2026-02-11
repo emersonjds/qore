@@ -2,58 +2,68 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ===== shadcn/ui CSS Variables ===== */
+/* ===== shadcn/ui CSS Variables — Paleta Qore (qoreapp.netlify.app) ===== */
 :root {
-  --background: 0 0% 100%;
-  --foreground: 220 14% 10%;
+  --background: 210 40% 98%;
+  --foreground: 216 47% 19%;
   --card: 0 0% 100%;
-  --card-foreground: 220 14% 10%;
+  --card-foreground: 216 47% 19%;
   --popover: 0 0% 100%;
-  --popover-foreground: 220 14% 10%;
-  --primary: 233 100% 64%;
+  --popover-foreground: 216 47% 19%;
+  --primary: 160 96% 30%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 220 13% 95%;
-  --secondary-foreground: 220 14% 28%;
-  --muted: 220 14% 96%;
-  --muted-foreground: 215 12% 47%;
-  --accent: 220 13% 95%;
-  --accent-foreground: 220 14% 28%;
-  --destructive: 4 90% 58%;
+  --secondary: 197 100% 95%;
+  --secondary-foreground: 216 47% 19%;
+  --muted: 213 37% 95%;
+  --muted-foreground: 215 16% 35%;
+  --accent: 152 81% 96%;
+  --accent-foreground: 216 47% 19%;
+  --destructive: 0 74% 57%;
   --destructive-foreground: 0 0% 100%;
-  --border: 220 13% 90%;
-  --input: 220 13% 90%;
-  --ring: 233 100% 64%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 160 96% 30%;
   --radius: 0.75rem;
-  --success: 152 68% 39%;
+  --success: 160 96% 30%;
   --success-foreground: 0 0% 100%;
-  --warning: 33 95% 50%;
+  --warning: 38 92% 50%;
   --warning-foreground: 0 0% 100%;
+  --chart-1: 160 96% 30%;
+  --chart-2: 216 47% 19%;
+  --chart-3: 215 16% 35%;
+  --chart-4: 199 89% 60%;
+  --chart-5: 263 70% 76%;
 }
 
 .dark {
-  --background: 222 22% 10%;
+  --background: 216 47% 10%;
   --foreground: 210 20% 95%;
-  --card: 222 22% 12%;
+  --card: 216 47% 13%;
   --card-foreground: 210 20% 95%;
-  --popover: 222 22% 12%;
+  --popover: 216 47% 13%;
   --popover-foreground: 210 20% 95%;
-  --primary: 233 100% 64%;
+  --primary: 160 96% 30%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 220 14% 18%;
+  --secondary: 216 30% 18%;
   --secondary-foreground: 210 20% 90%;
-  --muted: 220 14% 18%;
+  --muted: 216 30% 18%;
   --muted-foreground: 215 14% 60%;
-  --accent: 220 14% 18%;
-  --accent-foreground: 210 20% 90%;
-  --destructive: 4 90% 58%;
+  --accent: 160 30% 15%;
+  --accent-foreground: 152 60% 80%;
+  --destructive: 0 74% 57%;
   --destructive-foreground: 0 0% 100%;
-  --border: 220 14% 22%;
-  --input: 220 14% 22%;
-  --ring: 233 100% 64%;
-  --success: 152 68% 39%;
+  --border: 216 30% 22%;
+  --input: 216 30% 22%;
+  --ring: 160 96% 30%;
+  --success: 160 96% 30%;
   --success-foreground: 0 0% 100%;
-  --warning: 33 95% 50%;
+  --warning: 38 92% 50%;
   --warning-foreground: 0 0% 100%;
+  --chart-1: 160 80% 40%;
+  --chart-2: 199 89% 60%;
+  --chart-3: 263 70% 76%;
+  --chart-4: 38 92% 50%;
+  --chart-5: 0 74% 57%;
 }
 
 @theme {
@@ -90,20 +100,20 @@
   --color-current: currentColor;
   --color-transparent: transparent;
   --color-white: #ffffff;
-  --color-black: #101828;
+  --color-black: #1a2b48;
 
-  --color-brand-25: #f2f7ff;
-  --color-brand-50: #ecf3ff;
-  --color-brand-100: #dde9ff;
-  --color-brand-200: #c2d6ff;
-  --color-brand-300: #9cb9ff;
-  --color-brand-400: #7592ff;
-  --color-brand-500: #465fff;
-  --color-brand-600: #3641f5;
-  --color-brand-700: #2a31d8;
-  --color-brand-800: #252dae;
-  --color-brand-900: #262e89;
-  --color-brand-950: #161950;
+  --color-brand-25: #f0fdf6;
+  --color-brand-50: #ecfdf5;
+  --color-brand-100: #d1fae5;
+  --color-brand-200: #a7f3d0;
+  --color-brand-300: #6ee7b7;
+  --color-brand-400: #34d399;
+  --color-brand-500: #059669;
+  --color-brand-600: #047857;
+  --color-brand-700: #036c4f;
+  --color-brand-800: #065f46;
+  --color-brand-900: #064e3b;
+  --color-brand-950: #022c22;
 
   --color-blue-light-25: #f5fbff;
   --color-blue-light-50: #f0f9ff;
@@ -202,7 +212,7 @@
     0px 20px 24px -4px rgba(16, 24, 40, 0.08),
     0px 8px 8px -4px rgba(16, 24, 40, 0.03);
   --shadow-datepicker: -5px 0 0 #262d3c, 5px 0 0 #262d3c;
-  --shadow-focus-ring: 0px 0px 0px 4px rgba(70, 95, 255, 0.12);
+  --shadow-focus-ring: 0px 0px 0px 4px rgba(5, 150, 105, 0.12);
   --shadow-slider-navigation:
     0px 1px 2px 0px rgba(16, 24, 40, 0.1), 0px 1px 3px 0px rgba(16, 24, 40, 0.1);
   --shadow-tooltip:
@@ -521,13 +531,13 @@ span.flatpickr-weekday,
 .flatpickr-day.selected.nextMonthDay,
 .flatpickr-day.startRange.nextMonthDay,
 .flatpickr-day.endRange.nextMonthDay {
-  background: #465fff;
+  background: #059669;
   @apply !border-brand-500 !bg-brand-500 hover:!border-brand-50 hover:!bg-brand-500;
 }
 .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n + 1)) {
-  box-shadow: -10px 0 0 #465fff;
+  box-shadow: -10px 0 0 #059669;
 }
 
 .flatpickr-months .flatpickr-prev-month svg,

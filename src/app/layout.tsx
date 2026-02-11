@@ -3,6 +3,8 @@ import './globals.css';
 import "flatpickr/dist/flatpickr.css";
 import { SidebarProvider } from '@/context/SidebarContext';
 import { ThemeProvider } from '@/context/ThemeContext';
+import { Toaster } from '@/components/ui-shadcn/sonner';
+import { TooltipProvider } from '@/components/ui-shadcn/tooltip';
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -14,10 +16,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body className={`${outfit.className} dark:bg-gray-900`}>
         <ThemeProvider>
-          <SidebarProvider>{children}</SidebarProvider>
+          <TooltipProvider>
+            <SidebarProvider>{children}</SidebarProvider>
+            <Toaster richColors position="top-right" />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>
