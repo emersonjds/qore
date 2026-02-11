@@ -2,6 +2,60 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ===== shadcn/ui CSS Variables ===== */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 220 14% 10%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 14% 10%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 14% 10%;
+  --primary: 233 100% 64%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 13% 95%;
+  --secondary-foreground: 220 14% 28%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 215 12% 47%;
+  --accent: 220 13% 95%;
+  --accent-foreground: 220 14% 28%;
+  --destructive: 4 90% 58%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 13% 90%;
+  --input: 220 13% 90%;
+  --ring: 233 100% 64%;
+  --radius: 0.75rem;
+  --success: 152 68% 39%;
+  --success-foreground: 0 0% 100%;
+  --warning: 33 95% 50%;
+  --warning-foreground: 0 0% 100%;
+}
+
+.dark {
+  --background: 222 22% 10%;
+  --foreground: 210 20% 95%;
+  --card: 222 22% 12%;
+  --card-foreground: 210 20% 95%;
+  --popover: 222 22% 12%;
+  --popover-foreground: 210 20% 95%;
+  --primary: 233 100% 64%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 14% 18%;
+  --secondary-foreground: 210 20% 90%;
+  --muted: 220 14% 18%;
+  --muted-foreground: 215 14% 60%;
+  --accent: 220 14% 18%;
+  --accent-foreground: 210 20% 90%;
+  --destructive: 4 90% 58%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 14% 22%;
+  --input: 220 14% 22%;
+  --ring: 233 100% 64%;
+  --success: 152 68% 39%;
+  --success-foreground: 0 0% 100%;
+  --warning: 33 95% 50%;
+  --warning-foreground: 0 0% 100%;
+}
+
 @theme {
   --font-*: initial;
   --font-outfit: Outfit, sans-serif;
