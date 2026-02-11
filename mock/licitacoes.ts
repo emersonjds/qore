@@ -2,8 +2,28 @@ import { faker } from "@faker-js/faker/locale/pt_BR";
 
 export type LicitacaoStatus = "Ativa" | "Encerrada" | "Próxima";
 
+export type LicitacaoModalidade =
+  | "Pregão Eletrônico"
+  | "Concorrência"
+  | "Tomada de Preços"
+  | "Convite"
+  | "Dispensa"
+  | "Inexigibilidade";
+
+export interface MatchAnalise {
+  /** Score geral de compatibilidade (0–100) */
+  score: number;
+  /** Qtd de itens do edital que batem com o catálogo */
+  itensCompativeis: number;
+  /** Total de itens exigidos no edital */
+  totalItensEdital: number;
+  /** Palavras-chave do edital que bateram com o catálogo */
+  keywordsMatch: string[];
+}
+
 export interface Licitacao {
   id: string;
+  numeroEdital: string;
   titulo: string;
   orgao: string;
   cidade: string;
@@ -13,6 +33,10 @@ export interface Licitacao {
   descricao: string;
   status: LicitacaoStatus;
   categoria: string;
+  modalidade: LicitacaoModalidade;
+  favoritada?: boolean;
+  /** Resultado da análise de compatibilidade com o catálogo da empresa */
+  match: MatchAnalise;
 }
 
 const categorias = [
@@ -146,6 +170,21 @@ const descricoes: Record<string, string[]> = {
   ],
 };
 
+const modalidades: LicitacaoModalidade[] = [
+  "Pregão Eletrônico",
+  "Concorrência",
+  "Tomada de Preços",
+  "Convite",
+  "Dispensa",
+  "Inexigibilidade",
+];
+
+function gerarNumeroEdital(): string {
+  const ano = faker.date.recent({ days: 365 }).getFullYear();
+  const numero = faker.number.int({ min: 1, max: 999 }).toString().padStart(3, "0");
+  return `${numero}/${ano}`;
+}
+
 function gerarLicitacao(): Licitacao {
   const categoria = faker.helpers.arrayElement(categorias);
   const estadoObj = faker.helpers.arrayElement(estados);
@@ -181,8 +220,21 @@ function gerarLicitacao(): Licitacao {
     });
   }
 
+  const totalItensEdital = faker.number.int({ min: 3, max: 25 });
+  const itensCompativeis = faker.number.int({ min: 0, max: totalItensEdital });
+  const score = totalItensEdital > 0
+    ? Math.round((itensCompativeis / totalItensEdital) * 100)
+    : 0;
+
+  const keywordsPool = [
+    "medicamento", "insumo", "equipamento", "computador", "servidor",
+    "limpeza", "manutenção", "reforma", "transporte", "alimentação",
+    "software", "consultoria", "material didático", "veículo", "uniforme",
+  ];
+
   return {
     id: faker.string.uuid(),
+    numeroEdital: gerarNumeroEdital(),
     titulo,
     orgao,
     cidade,
@@ -192,6 +244,13 @@ function gerarLicitacao(): Licitacao {
     descricao,
     status,
     categoria,
+    modalidade: faker.helpers.arrayElement(modalidades),
+    match: {
+      score,
+      itensCompativeis,
+      totalItensEdital,
+      keywordsMatch: faker.helpers.arrayElements(keywordsPool, { min: 1, max: 5 }),
+    },
   };
 }
 
@@ -203,67 +262,128 @@ export function gerarLicitacoes(quantidade: number = 20): Licitacao[] {
 export const licitacoesMock: Licitacao[] = [
   {
     id: "1",
+    numeroEdital: "045/2025",
     titulo: "Aquisição de Medicamentos",
     orgao: "Prefeitura de Salvador",
     cidade: "Salvador",
     estado: "BA",
-    valor: 300000,
+    valor: 347850.0,
     prazo: new Date("2025-11-30"),
     descricao:
-      "Compra de medicamentos para abastecimento da farmácia popular.",
+      "Compra de medicamentos para abastecimento da farmácia popular e unidades básicas de saúde.",
     status: "Ativa",
     categoria: "Saúde",
+    modalidade: "Pregão Eletrônico",
+    match: {
+      score: 87,
+      itensCompativeis: 13,
+      totalItensEdital: 15,
+      keywordsMatch: ["medicamento", "insumo", "equipamento"],
+    },
   },
   {
     id: "2",
+    numeroEdital: "012/2024",
     titulo: "Contratação de Serviços de Limpeza",
     orgao: "Tribunal de Justiça do Rio de Janeiro",
     cidade: "Rio de Janeiro",
     estado: "RJ",
-    valor: 80000,
+    valor: 89500.0,
     prazo: new Date("2024-10-09"),
     descricao:
       "Prestação de serviços contínuos de limpeza, asseio e conservação predial.",
     status: "Encerrada",
     categoria: "Serviços Gerais",
+    modalidade: "Concorrência",
+    match: {
+      score: 23,
+      itensCompativeis: 2,
+      totalItensEdital: 9,
+      keywordsMatch: ["limpeza"],
+    },
   },
   {
     id: "3",
+    numeroEdital: "003/2026",
     titulo: "Fornecimento de Merenda Escolar",
     orgao: "Governo do Estado de Minas Gerais",
     cidade: "Belo Horizonte",
     estado: "MG",
-    valor: 2000000,
+    valor: 2150000.0,
     prazo: new Date("2026-01-19"),
     descricao:
       "Registro de preços para aquisição de gêneros alimentícios para as escolas da rede municipal.",
     status: "Próxima",
     categoria: "Alimentação",
+    modalidade: "Pregão Eletrônico",
+    match: {
+      score: 64,
+      itensCompativeis: 7,
+      totalItensEdital: 11,
+      keywordsMatch: ["alimentação", "insumo"],
+    },
   },
   {
     id: "4",
+    numeroEdital: "078/2025",
     titulo: "Pavimentação de Vias Urbanas",
     orgao: "Prefeitura de Curitiba",
     cidade: "Curitiba",
     estado: "PR",
-    valor: 1500000,
+    valor: 1875000.0,
     prazo: new Date("2025-08-15"),
     descricao:
       "Execução de obras de pavimentação asfáltica em diversas vias do município.",
     status: "Ativa",
     categoria: "Infraestrutura",
+    modalidade: "Tomada de Preços",
+    match: {
+      score: 12,
+      itensCompativeis: 1,
+      totalItensEdital: 8,
+      keywordsMatch: ["manutenção"],
+    },
   },
   {
     id: "5",
+    numeroEdital: "091/2025",
     titulo: "Sistema de Gestão Pública",
     orgao: "Secretaria de Educação de Recife",
     cidade: "Recife",
     estado: "PE",
-    valor: 450000,
+    valor: 523000.0,
     prazo: new Date("2025-12-20"),
     descricao:
       "Implantação de sistema integrado de gestão administrativa.",
     status: "Ativa",
     categoria: "Tecnologia",
+    modalidade: "Pregão Eletrônico",
+    match: {
+      score: 92,
+      itensCompativeis: 11,
+      totalItensEdital: 12,
+      keywordsMatch: ["software", "servidor", "computador", "consultoria"],
+    },
+  },
+  {
+    id: "6",
+    numeroEdital: "034/2025",
+    titulo: "Aquisição de Equipamentos de TI",
+    orgao: "Ministério Público de São Paulo",
+    cidade: "São Paulo",
+    estado: "SP",
+    valor: 1250000.0,
+    prazo: new Date("2025-09-30"),
+    descricao:
+      "Aquisição de computadores, servidores e periféricos para modernização tecnológica do parque computacional.",
+    status: "Ativa",
+    categoria: "Tecnologia",
+    modalidade: "Pregão Eletrônico",
+    match: {
+      score: 78,
+      itensCompativeis: 9,
+      totalItensEdital: 12,
+      keywordsMatch: ["computador", "servidor", "equipamento"],
+    },
   },
 ];

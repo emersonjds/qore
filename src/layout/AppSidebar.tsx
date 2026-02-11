@@ -37,6 +37,7 @@ const navItems: NavItem[] = [
       { name: "Todas", path: "/basic-tables", pro: false },
       { name: "Ativas", path: "/blank", pro: false },
       { name: "Encerradas", path: "/blank", pro: false },
+      { name: "Meu Catálogo", path: "/catalogo", pro: false, new: true },
     ],
   },
   {
