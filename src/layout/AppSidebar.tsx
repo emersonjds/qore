@@ -51,7 +51,7 @@ const navItems: NavItem[] = [
   {
     icon: <PageIcon />,
     name: "Documentos",
-    path: "/blank",
+    path: "/documentos",
   },
   {
     icon: <CalenderIcon />,
