@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { OpportunitiesList } from "@/components/landing/opportunities-list";
 
 export const metadata: Metadata = {
-  title: "Licitações BR - Find Government Opportunities",
+  title: "Licitações BR - Oportunidades de Licitação",
   description:
-    "Access real-time bidding opportunities from agencies across Brazil.",
+    "Encontre e acompanhe oportunidades de licitação de órgãos públicos de todo o Brasil.",
 };
 
 export default function Home() {

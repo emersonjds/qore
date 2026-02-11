@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { ListFilter } from "lucide-react";
 import { LandingHero } from "./landing-hero";
 import { LandingFilters } from "./landing-filters";
 import { LicitacaoCard } from "./licitacao-card";
 import { licitacoesMock } from "@/../mock/licitacoes";
+import { Badge } from "@/components/ui-shadcn/badge";
 
 export function OpportunitiesList() {
   const [search, setSearch] = useState("");
@@ -17,7 +19,8 @@ export function OpportunitiesList() {
       const matchSearch =
         !search ||
         l.titulo.toLowerCase().includes(search.toLowerCase()) ||
-        l.orgao.toLowerCase().includes(search.toLowerCase());
+        l.orgao.toLowerCase().includes(search.toLowerCase()) ||
+        l.descricao.toLowerCase().includes(search.toLowerCase());
 
       const matchCategoria = categoria === "all" || l.categoria === categoria;
       const matchEstado = estado === "all" || l.estado === estado;
@@ -26,6 +29,19 @@ export function OpportunitiesList() {
       return matchSearch && matchCategoria && matchEstado && matchStatus;
     });
   }, [search, categoria, estado, status]);
+
+  const hasActiveFilters =
+    search !== "" ||
+    categoria !== "all" ||
+    estado !== "all" ||
+    status !== "all";
+
+  const clearFilters = () => {
+    setSearch("");
+    setCategoria("all");
+    setEstado("all");
+    setStatus("all");
+  };
 
   return (
     <div className="space-y-6">
@@ -44,12 +60,23 @@ export function OpportunitiesList() {
 
       {/* Results header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-          Latest Opportunities
-        </h2>
-        <span className="text-sm text-gray-500 dark:text-gray-400">
-          {filtered.length} results found
-        </span>
+        <div className="flex items-center gap-3">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Últimas Oportunidades
+          </h2>
+          {hasActiveFilters && (
+            <button
+              onClick={clearFilters}
+              className="text-xs font-medium text-brand-500 hover:text-brand-600 hover:underline dark:text-brand-400"
+            >
+              Limpar filtros
+            </button>
+          )}
+        </div>
+        <Badge variant="secondary" className="gap-1.5">
+          <ListFilter className="h-3 w-3" />
+          {filtered.length} {filtered.length === 1 ? "resultado" : "resultados"}
+        </Badge>
       </div>
 
       {/* Cards grid */}
@@ -60,10 +87,24 @@ export function OpportunitiesList() {
           ))}
         </div>
       ) : (
-        <div className="rounded-2xl border border-gray-200 bg-white p-12 text-center dark:border-gray-800 dark:bg-white/[0.03]">
-          <p className="text-gray-500 dark:text-gray-400">
-            No opportunities found with the selected filters.
-          </p>
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-gray-300 bg-white p-12 text-center dark:border-gray-700 dark:bg-white/[0.02]">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 dark:bg-white/5">
+            <ListFilter className="h-5 w-5 text-gray-400" />
+          </div>
+          <div>
+            <p className="font-medium text-gray-700 dark:text-gray-300">
+              Nenhuma oportunidade encontrada
+            </p>
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              Tente ajustar os filtros ou buscar por outro termo.
+            </p>
+          </div>
+          <button
+            onClick={clearFilters}
+            className="mt-2 rounded-lg bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-brand-600 transition-colors"
+          >
+            Limpar filtros
+          </button>
         </div>
       )}
     </div>
