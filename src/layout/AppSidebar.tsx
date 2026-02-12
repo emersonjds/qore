@@ -7,6 +7,7 @@ import { useSidebar } from "../context/SidebarContext";
 import {
   CalenderIcon,
   ChevronDownIcon,
+  DollarLineIcon,
   GridIcon,
   HorizontaLDots,
   ListIcon,
@@ -44,7 +45,7 @@ const navItems: NavItem[] = [
     icon: <ListIcon />,
     name: "Propostas",
     subItems: [
-      { name: "Minhas Propostas", path: "/blank", pro: false },
+      { name: "Minhas Propostas", path: "/propostas", pro: false },
       { name: "Nova Proposta", path: "/form-elements", pro: false },
     ],
   },
@@ -57,6 +58,11 @@ const navItems: NavItem[] = [
     icon: <CalenderIcon />,
     name: "Agenda",
     path: "/calendar",
+  },
+  {
+    icon: <DollarLineIcon />,
+    name: "Financeiro",
+    path: "/financeiro",
   },
 ];
 

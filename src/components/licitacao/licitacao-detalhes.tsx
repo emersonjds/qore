@@ -224,9 +224,11 @@ export function LicitacaoDetalhes({ id }: LicitacaoDetalhesProps) {
             Portal
           </Button>
           {licitacao.status === "Ativa" && (
-            <Button>
-              <Send className="h-4 w-4" />
-              Enviar Proposta
+            <Button asChild>
+              <Link href={`/licitacoes/${id}/proposta`}>
+                <Send className="h-4 w-4" />
+                Enviar Proposta
+              </Link>
             </Button>
           )}
         </div>
@@ -459,9 +461,11 @@ export function LicitacaoDetalhes({ id }: LicitacaoDetalhesProps) {
                 Envie sua proposta antes do prazo final e concorra a esta
                 licitação.
               </p>
-              <Button className="mt-4 w-full">
-                <Send className="h-4 w-4" />
-                Enviar Proposta
+              <Button asChild className="mt-4 w-full">
+                <Link href={`/licitacoes/${id}/proposta`}>
+                  <Send className="h-4 w-4" />
+                  Enviar Proposta
+                </Link>
               </Button>
             </div>
           )}
